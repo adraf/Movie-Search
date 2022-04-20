@@ -1,7 +1,6 @@
 {
   "name": "main-project",
   "version": "1.0.0",
-
   "scripts": {
     "start": "parcel client/index.html",
     "build": "parcel build client/index.html",
@@ -11,11 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "parcel": "^2.4.1"
+    "os-browserify": "^0.3.0",
+    "parcel": "^2.4.1",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10"
   },
   "description": ""
 }

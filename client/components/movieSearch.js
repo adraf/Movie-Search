@@ -1,6 +1,8 @@
+import "dotenv/config";
+
+const apiKey = process.env.API_KEY;
 const url = "https://imdb-api.com/en/API";
 const searchTitle = "SearchTitle"
-const apiKey = "k_bsm0tabn";
 const endPoint = `${url}/${searchTitle}/${apiKey}`;
 
 function waitForJSON(res) {
@@ -46,13 +48,6 @@ function onFormSubmit(event) {
 }
 GetMovieData();
 form.addEventListener("submit", onFormSubmit);
-
-// ------------ WIP ----------------
-// make function
-// on image click/movie info click
-// get id and show movie info
-
-// Next Step to search individual title from main search
 
 function handleIndividualData(data) {
   outputDiv.innerHTML = "";
