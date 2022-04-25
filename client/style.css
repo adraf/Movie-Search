@@ -65,6 +65,7 @@ input[type="submit"] {
   color: rgb(84, 255, 209);
   font-family: "Staatliches", cursive;
   letter-spacing: 1.25px;
+  -webkit-appearance: none;
 }
 
 input[type="text"] {
