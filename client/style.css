@@ -39,9 +39,6 @@ img {
   margin: 15px;
   height: 350px;
   max-width: 250px;
-  border-bottom: 2px solid rgb(84, 255, 209);
-  border-right: 2px solid rgb(84, 255, 209);
-  border-radius: 20px;
 }
 
 /* TO FIX */
@@ -56,6 +53,12 @@ input {
   border-radius: 10px;
   border: none;
   margin: 10px;
+}
+
+input:focus {
+  outline: none !important;
+  border-color: rgb(84, 255, 209);
+  box-shadow: 0 0 10 rgb(84, 255, 209);
 }
 
 input[type="submit"] {
@@ -93,23 +96,17 @@ input::placeholder {
 }
 
 h2 {
-  background-color: rgb(84, 255, 209);
-  color: #16161d;
-  border-bottom: 2px solid rgb(0, 0, 0);
-  border-right: 2px solid rgb(0, 0, 0);
-  padding: 20px 30px;
-  border-radius: 20px;
-  max-width: 20vw;
+  color: rgb(84, 255, 209);
+  padding: 0px 20px;
   margin: 20px auto;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 p {
   max-width: 50vw;
   margin: 0 auto 30px auto;
   color: white;
-  padding: 15px 20px;
-  background-color: rgba(57, 76, 86);
+  padding: 0px 20px;
   border-radius: 18px;
 }
 
@@ -140,9 +137,9 @@ footer a {
 
 main {
   display: flex;
+  align-items: center;
   width: 98vw;
   color: white;
-  
 }
 
 main section {
@@ -150,11 +147,13 @@ main section {
   flex-direction: column;
 }
 
-
 #IndMovieInfo {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+}
+
+#IndMovieInfo h2 {
+  margin: 0 auto;
 }
 
 #indPoster {
@@ -163,16 +162,15 @@ main section {
 }
 
 aside {
-  background-color: rgba(57, 76, 86);
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-self: center;
+  align-items: center;
   justify-content: space-between;
   width: 80%;
   height: auto;
   padding: 10px 15px;
-  text-align: left;
+  font-size: 20px;
 }
 
 aside ul {
@@ -181,6 +179,11 @@ aside ul {
   flex-direction: row;
   justify-content: space-around;
   padding: 0;
+  width: 60%;
+}
+
+aside p {
+  margin-top: 20px;
 }
 
 #actorInfo {
@@ -226,8 +229,10 @@ aside ul {
 
 #actorImagesHeader img {
   height: 250px;
-  width: auto;
+  width: 250px;
   margin-right: 50px;
+  object-fit: cover;
+  border-radius: 100%;
 }
 
 #actorImagesHeader h2 {
@@ -271,7 +276,7 @@ aside ul {
   max-width: 150px;
   align-self: center;
   margin: 15px 0 20px 0;
-  font-size: 15px;;
+  font-size: 16px;;
 }
 
 

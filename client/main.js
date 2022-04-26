@@ -112,6 +112,12 @@ document.body.addEventListener('click', function(event) {
   }
 });
 
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 
 document.body.addEventListener('click', function(event) {
   let actorSection = event.target.closest("#actorSections");
@@ -155,4 +161,5 @@ document.body.addEventListener('click', function(event) {
     outputDiv.innerHTML += html;
     };
   }
+  scrollToTop();
 });
