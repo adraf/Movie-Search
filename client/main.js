@@ -11,6 +11,34 @@ function waitForJSON(res) {
 
 const outputDiv = document.querySelector('#output');
 
+// Start Page
+function comingSoon() {
+  const endPoint = `${url}/ComingSoon/${apiKey}`
+  fetch(endPoint).then(waitForJSON).then(handleStartPage);
+}
+
+function handleStartPage(data) {
+  outputDiv.innerHTML = "";
+  for (let i = 0; i < data.items.length; i++) {
+    const title = data.items[i].title;
+    const year = data.items[i].year;
+    const posterImage = data.items[i].image;
+    const searchID = data.items[i].id;
+    const release = data.items[i].releaseState;
+    const html = `
+      <article id="articleMovies">
+        <img id="posterSearch" src="${posterImage}" alt="${searchID}">
+        <div id="movieInfo">
+          <h2>${title}</h2>
+          <p>${year}</br>Coming ${release}</p>
+        </div>
+      <article>
+    `;
+  outputDiv.innerHTML += html;
+  };
+}
+comingSoon();
+
 function handleData(data) {
     outputDiv.innerHTML = "";
     for (let i = 0; i < data.results.length; i++) {
@@ -46,7 +74,6 @@ function onFormSubmit(event) {
   const title = input.value.trim() === "" ? "Scream" : input.value;
   getMovieData(title);
 }
-getMovieData();
 form.addEventListener("submit", onFormSubmit);
 
 function handleIndividualData(data) {
@@ -163,3 +190,6 @@ document.body.addEventListener('click', function(event) {
   }
   scrollToTop();
 });
+
+
+

@@ -100,6 +100,7 @@ h2 {
   padding: 0px 20px;
   margin: 20px auto;
   font-size: 30px;
+  max-width: 250px;
 }
 
 p {
@@ -268,8 +269,6 @@ aside p {
   width: auto;
   object-fit: cover;
   background-position: center;
-  border-bottom: 2px solid rgb(84, 255, 209);
-  border-right: 2px solid rgb(84, 255, 209);
 }
 
 #screenShotMain h6 {
@@ -280,17 +279,15 @@ aside p {
 }
 
 
-
-
 @media only screen and (max-width: 600px) {
 
   h1 {
     padding-bottom: 20px;
   }
 
-  #output {
+  /* #output {
     display: block;
-  }
+  } */
 
   p {
     max-width: 75vw;
@@ -304,6 +301,18 @@ aside p {
     flex-wrap: wrap;
     justify-content: center;
     width: auto;
+  }
+
+  #articleMovies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 45vw;
+  }
+
+  #posterSearch {
+    height: auto;
+    max-width: 150px;
   }
 
   #indPoster {
