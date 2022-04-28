@@ -89,17 +89,22 @@ function handleIndividualData(data) {
   const indRunTimeCheck = indRunTime ? `<li>${indRunTime}</li>` : "";
   const year = data.year;
   const director = data.directors;
-  const directorCheck = director ? `<p><span style="color: rgb(84, 255, 209)">Director  </span>${director}</p>` : "";
+  const directorCheck = director ? `<p><span style="color: rgb(84, 255, 209)">Director&nbsp;&nbsp;</span>${director}</p>` : "";
   const ageRating = data.contentRating;
   const ageRatingCheck = ageRating ? `<li>${ageRating}</li>` : "";
-  const tomatoRating = data.ratings.rottenTomatoes 
-  const tomatoRatingCheck = tomatoRating ? `<p>Rotten Tomatoes: ${tomatoRating}</p>` : "";
+  const tomatoRating = data.ratings.rottenTomatoes; 
+  const tomatoRatingCheck = (tomatoRating >= 1 && tomatoRating <= 40) ? `<p>Rotten Tomatoes:&nbsp;<span style="color:red">${tomatoRating}</span></p>` 
+  : (tomatoRating > 40 && tomatoRating < 80) ? `<p>Rotten Tomatoes:&nbsp;<span style="color:orange">${tomatoRating}</span></p>` 
+  : (tomatoRating >=80 && tomatoRating <= 97) ? `<p>Rotten Tomatoes:&nbsp;<span style="color:green">${tomatoRating}</span></p>`
+  : (tomatoRating > 97 && tomatoRating <= 100) ? `<p>Rotten Tomatoes:&nbsp;<span style="color:green">&#128293;&nbsp;${tomatoRating}&nbsp;&#128293;</span></p>`
+  : "";
+
   let actorInfo = "";
   for (let i = 0; i < data.actorList.length; i++) {
     const actors = data.actorList[i].name;
     const actorID = data.actorList[i].id;
     const actorImg = data.actorList[i].image;
-    const actorImgCheck = (actorImg == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="actorHeadshot" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/placeholderheadshot.png" alt="${actorID}"></img>` : `<img id="actorHeadshot" src="${actorImg}" alt="${actorID}"></img>`
+    const actorImgCheck = (actorImg == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="actorHeadshot" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/headshot.png" alt="${actorID}"></img>` : `<img id="actorHeadshot" src="${actorImg}" alt="${actorID}"></img>`
     const asCharacter = data.actorList[i].asCharacter;
     actorInfo += `
       <div id="actorSections">
