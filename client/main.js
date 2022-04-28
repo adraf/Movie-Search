@@ -25,12 +25,13 @@ function handleStartPage(data) {
     const posterImage = data.items[i].image;
     const searchID = data.items[i].id;
     const release = data.items[i].releaseState;
+    const releaseCheck = release ? `</br>Coming ${release}` : "";
     const html = `
       <article id="articleMovies">
         <img id="posterSearch" src="${posterImage}" alt="${searchID}">
         <div id="movieInfo">
           <h2>${title}</h2>
-          <p>${year}</br>Coming ${release}</p>
+          <p>${year}${releaseCheck}</p>
         </div>
       <article>
     `;
@@ -39,9 +40,10 @@ function handleStartPage(data) {
 }
 comingSoon();
 
+
 function handleData(data) {
-    outputDiv.innerHTML = "";
-    for (let i = 0; i < data.results.length; i++) {
+  outputDiv.innerHTML = "";
+  for (let i = 0; i < data.results.length; i++) {
     const title = data.results[i].title;
     const yearDes = data.results[i].description;
     const year = yearDes.match(/\d+/)[0];
@@ -61,7 +63,7 @@ function handleData(data) {
 }
 
 function getMovieData(searchTerm = "Scream") {
-  outputDiv.innerHTML = `<div id="loader"><h1>Loading...</h1></div>` // TO FIX
+  outputDiv.innerHTML = `<div id="loader"><h1>Loading...</h1></div>`
   const endPoint = `${url}/${searchTitle}/${apiKey}/${searchTerm}`  
   fetch(endPoint).then(waitForJSON).then(handleData);
 }
@@ -82,20 +84,26 @@ function handleIndividualData(data) {
   const searchID = data.id;
   const indTitle = data.title;
   const indPlot = data.plot;
+  const indPlotCheck = indPlot ? `<article>${indPlot}</article>` : "";
   const indRunTime = data.runtimeStr;
+  const indRunTimeCheck = indRunTime ? `<li>${indRunTime}</li>` : "";
   const year = data.year;
   const director = data.directors;
+  const directorCheck = director ? `<p><span style="color: rgb(84, 255, 209)">Director  </span>${director}</p>` : "";
   const ageRating = data.contentRating;
-  const tomatoRating = data.ratings.rottenTomatoes;
+  const ageRatingCheck = ageRating ? `<li>${ageRating}</li>` : "";
+  const tomatoRating = data.ratings.rottenTomatoes 
+  const tomatoRatingCheck = tomatoRating ? `<p>Rotten Tomatoes: ${tomatoRating}</p>` : "";
   let actorInfo = "";
   for (let i = 0; i < data.actorList.length; i++) {
     const actors = data.actorList[i].name;
     const actorID = data.actorList[i].id;
     const actorImg = data.actorList[i].image;
+    const actorImgCheck = (actorImg == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="actorHeadshot" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/placeholderheadshot.png" alt="${actorID}"></img>` : `<img id="actorHeadshot" src="${actorImg}" alt="${actorID}"></img>`
     const asCharacter = data.actorList[i].asCharacter;
     actorInfo += `
       <div id="actorSections">
-        <img id="actorHeadshot" src="${actorImg}" alt="${actorID}">
+        ${actorImgCheck}
         <h4 id="thisActor">${actors}</h4>
         <h5>${asCharacter}</h5>
       </div>
@@ -105,18 +113,18 @@ function handleIndividualData(data) {
   <main>
     <section>
       <img id="indPoster" src="${indPoster}" alt="${searchID}">
-      <p>Rotten Tomatoes: ${tomatoRating}</p>
+      ${tomatoRatingCheck}
     </section>
     <div id="IndMovieInfo">
       <h2>${indTitle}</h2>
       <aside>
         <ul>
           <li>${year}</li>
-          <li>${ageRating}</li>
-          <li>${indRunTime}</li>
+          ${ageRatingCheck}
+          ${indRunTimeCheck}
         </ul>
-        <article>${indPlot}</article>
-        <p><span style="color: rgb(84, 255, 209)">Director  </span>${director}</p>
+        ${indPlotCheck}
+        ${directorCheck}
       </aside>
     </div>
   </main>
