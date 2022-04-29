@@ -162,6 +162,11 @@ main section {
   height: auto;
 }
 
+#tagLine {
+  color: rgb(84, 255, 209);
+  font-style: italic;
+}
+
 aside {
   display: flex;
   flex-direction: column;
@@ -187,14 +192,19 @@ aside p {
   margin-top: 20px;
 }
 
-#actorInfo {
+#actorInfo, #similarFilms {
   display: flex;
-  flex-wrap: wrap;
   color: white;
-  justify-content: center;
+  overflow: auto;
+  white-space: nowrap;
 }
 
-#actorSections {
+#similarFilms {
+  padding-bottom: 10px;
+  height: auto;
+}
+
+#actorSections, #similarTitleSection {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,13 +212,30 @@ aside p {
   min-width: 150px;
 }
 
-#actorSections h4, #actorSections h5 {
-  margin: 7px 0;
-
+#similarTitleSection {
+  justify-content: space-between;
 }
 
-#actorSections h5 {
+#similarTitleSection img {
   max-width: 150px;
+  height: auto;
+}
+
+#actorSections:hover, #similarTitleSection:hover {
+  opacity: 0.75;
+}
+
+#actorSections h4, #actorSections h5 {
+  margin: 7px 0;
+}
+
+#actorSections h5, #similarTitleSection h4 {
+  max-width: 150px;
+  white-space: break-spaces;
+}
+
+#similarTitleSection h4 {
+  margin: 0;
 }
 
 #actorHeadshot {
@@ -278,16 +305,29 @@ aside p {
   font-size: 16px;;
 }
 
+#searchOptions {
+  display: flex;
+  width: 60vw;
+  justify-content: space-around;
+  color: rgb(84, 255, 209);
+  list-style-type: none;
+  margin: 20px auto;
+  font-size: 25px;
+}
+
 
 @media only screen and (max-width: 600px) {
 
-  h1 {
-    padding-bottom: 20px;
+  #logo {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 20px;
   }
 
-  /* #output {
-    display: block;
-  } */
+  h1 {
+    font-size: 30px;
+    padding-bottom: 20px;
+  }
 
   p {
     max-width: 75vw;
@@ -318,6 +358,14 @@ aside p {
   #indPoster {
     max-width: 60%;
     margin: 20px auto;
+  }
+
+  #IndMovieInfo h2 {
+    margin: 15px auto;
+  }
+
+  aside ul {
+    justify-content: space-between;
   }
 
   #actorImagesHeader {

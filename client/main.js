@@ -8,14 +8,37 @@ const endPoint = `${url}/${searchTitle}/${apiKey}`;
 function waitForJSON(res) {
   return res.json();
 }
-
 const outputDiv = document.querySelector('#output');
 
 // Start Page
 function comingSoon() {
   const endPoint = `${url}/ComingSoon/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
+
+//   function handleStartPage(data) {
+//     outputDiv.innerHTML = "";
+//     for (let i = 0; i < data.items.length; i++) {
+//       const title = data.items[i].title;
+//       const year = data.items[i].year;
+//       const posterImage = data.items[i].image;
+//       const searchID = data.items[i].id;
+//       const release = data.items[i].releaseState;
+//       const releaseCheck = release ? `</br>Coming ${release}` : "";
+//       const html = `
+//         <article id="articleMovies">
+//           <img id="posterSearch" src="${posterImage}" alt="${searchID}">
+//           <div id="movieInfo">
+//             <h2>${title}</h2>
+//             <p>${year}${releaseCheck}</p>
+//           </div>
+//         <article>
+//       `;
+//     outputDiv.innerHTML += html;
+//     };
+// }
 }
+comingSoon();
+
 
 function handleStartPage(data) {
   outputDiv.innerHTML = "";
@@ -38,8 +61,31 @@ function handleStartPage(data) {
   outputDiv.innerHTML += html;
   };
 }
-comingSoon();
 
+buttonTheatre = document.querySelector("#theatre");
+buttonMostPop = document.querySelector("#mostPop");
+buttonMostPopTV = document.querySelector("#mostPopTV");
+
+function inTheatres(event) {
+  event.preventDefault();
+  const endPoint = `${url}/InTheaters/${apiKey}`
+  fetch(endPoint).then(waitForJSON).then(handleStartPage);
+}
+buttonTheatre.addEventListener("click", inTheatres);
+
+function mostPopular(event) {
+  event.preventDefault();
+  const endPoint = `${url}/MostPopularMovies/${apiKey}`
+  fetch(endPoint).then(waitForJSON).then(handleStartPage);
+}
+buttonMostPop.addEventListener("click", mostPopular);
+
+function mostPopularTV(event) {
+  event.preventDefault();
+  const endPoint = `${url}/MostPopularTVs/${apiKey}`
+  fetch(endPoint).then(waitForJSON).then(handleStartPage);
+}
+buttonMostPopTV.addEventListener("click", mostPopularTV);
 
 function handleData(data) {
   outputDiv.innerHTML = "";
@@ -87,6 +133,8 @@ function handleIndividualData(data) {
   const indPlotCheck = indPlot ? `<article>${indPlot}</article>` : "";
   const indRunTime = data.runtimeStr;
   const indRunTimeCheck = indRunTime ? `<li>${indRunTime}</li>` : "";
+  const tagLine = data.tagline;
+  const tagLineCheck = tagLine ? `<p id="tagLine">"${tagLine}"</p>` : "";
   const year = data.year;
   const director = data.directors;
   const directorCheck = director ? `<p><span style="color: rgb(84, 255, 209)">Director&nbsp;&nbsp;</span>${director}</p>` : "";
@@ -98,7 +146,18 @@ function handleIndividualData(data) {
   : (tomatoRating >=80 && tomatoRating <= 97) ? `<p>Rotten Tomatoes:&nbsp;<span style="color:green">${tomatoRating}</span></p>`
   : (tomatoRating > 97 && tomatoRating <= 100) ? `<p>Rotten Tomatoes:&nbsp;<span style="color:green">&#128293;&nbsp;${tomatoRating}&nbsp;&#128293;</span></p>`
   : "";
-
+  let similarFilms = "";
+  for (let i = 0; i < data.similars.length; i++) {
+    const searchID = data.similars[i].id;
+    const similarTitle = data.similars[i].title;
+    const similarPoster = data.similars[i].image;
+    similarFilms += `
+    <div id="similarTitleSection">
+      <img id="posterSearch" src="${similarPoster}" alt="${searchID}">
+      <h4>${similarTitle}</h4>
+    </div>
+    `
+  }
   let actorInfo = "";
   for (let i = 0; i < data.actorList.length; i++) {
     const actors = data.actorList[i].name;
@@ -128,12 +187,14 @@ function handleIndividualData(data) {
           ${ageRatingCheck}
           ${indRunTimeCheck}
         </ul>
+        ${tagLineCheck}
         ${indPlotCheck}
         ${directorCheck}
       </aside>
     </div>
   </main>
   <div id="actorInfo">${actorInfo}</div>
+  <div id="similarFilms">${similarFilms}</div>
   `; 
   outputDiv.innerHTML += html;
   };
@@ -203,6 +264,3 @@ document.body.addEventListener('click', function(event) {
   }
   scrollToTop();
 });
-
-
-
