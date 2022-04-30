@@ -7,15 +7,120 @@ body {
   letter-spacing: 1.25px;
 }
 
+/* Side Nav and Burger Menu */
+
+#hamburger-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+  padding: 0;
+  z-index: 2;
+	position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.burger {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.burger,
+.burger:before,
+.burger:after {
+  padding: 0;
+  background-color: black;
+  width: 80%;
+  height: 8px;
+  transition: margin .1s .2s, transform .2s;
+}
+
+.burger:before,
+.burger:after {
+  margin: 0;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.burger:before {
+  margin-top: -12px;
+}
+
+.burger:after {
+  margin-top: 12px;
+}
+
+/* STYLES FOR OUR BURGER WHEN THE MENU OPENS */
+.open .burger {
+  transform: rotate(45deg);
+}
+
+.open .burger,
+.open .burger:before,
+.open .burger:after {
+  transition: margin .2s, transform .1s .2s;
+}
+
+.open .burger:before,
+.open .burger:after {
+  margin-top: 0;
+}
+
+.open .burger:after {
+  transform: rotate(-90deg)
+}
+
+/* Side Nav Menu */
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(84, 255, 209);;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+}
+
+#searchOptions li {
+  padding: 8px 8px 8px 4px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #16161d;
+  display: block;
+  transition: 0.2s;
+}
+
+#searchOptions li {
+   list-style-type: none;
+   cursor: pointer;
+  }
+
+#searchOptions li:hover {
+  color: white;
+}
+
+/* Side Nav Menu ^^ */
+
 header {
   display: flex;
+  position: relative;
   background-color: rgb(84, 255, 209);
 }
 
 #logo {
   max-width: 150px;
   max-height: 150px;
-  margin: 10px 50px;
+  margin: 10px 50px 10px 90px;
 }
 
 h1 {
@@ -66,6 +171,7 @@ input[type="submit"] {
   border-bottom: 2px solid rgb(84, 255, 209);
   border-right: 2px solid rgb(84, 255, 209);
   color: rgb(84, 255, 209);
+  cursor: pointer;
   font-family: "Staatliches", cursive;
   letter-spacing: 1.25px;
   -webkit-appearance: none;
@@ -93,6 +199,10 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+#posterSearch, #actorHeadshot {
+ cursor: pointer;
 }
 
 h2 {
@@ -305,23 +415,33 @@ aside p {
   font-size: 16px;;
 }
 
-#searchOptions {
-  display: flex;
-  width: 60vw;
-  justify-content: space-around;
-  color: rgb(84, 255, 209);
-  list-style-type: none;
-  margin: 20px auto;
-  font-size: 25px;
-}
-
-
 @media only screen and (max-width: 600px) {
+
+  #hamburger-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+
+    margin-left: 10px;
+    padding: 0;
+    z-index: 2;
+    position: absolute;
+    top: 10%;
+    transform: none;
+  }
+
+  .sidenav {
+    padding-top: 15px;
+  }
+  
+  .sidenav a, #searchOptions li {
+    font-size: 18px;
+  }
 
   #logo {
     max-width: 100px;
     max-height: 100px;
-    margin-top: 20px;
+    margin: 20px 0;
   }
 
   h1 {

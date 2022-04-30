@@ -1,5 +1,28 @@
 import "dotenv/config";
 
+const menu = document.querySelector('#searchOptions');
+const menuToggle = document.querySelector('#hamburger-wrapper');
+
+function animateX() {menuToggle.addEventListener("click", () => {
+  menuToggle.classList.toggle("open")
+})
+}
+animateX();
+
+function animateSideBar() {
+menuToggle.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (menu.style.display == 'block') {
+    menu.style.display = 'none';       					 
+    document.getElementById("mySidenav").style.width = "0px";
+  } else {
+    menu.style.display = 'block';  
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+})
+}
+animateSideBar();
+
 const apiKey = process.env.API_KEY;
 const url = "https://imdb-api.com/en/API";
 const searchTitle = "SearchTitle"
@@ -14,44 +37,23 @@ const outputDiv = document.querySelector('#output');
 function comingSoon() {
   const endPoint = `${url}/ComingSoon/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
-
-//   function handleStartPage(data) {
-//     outputDiv.innerHTML = "";
-//     for (let i = 0; i < data.items.length; i++) {
-//       const title = data.items[i].title;
-//       const year = data.items[i].year;
-//       const posterImage = data.items[i].image;
-//       const searchID = data.items[i].id;
-//       const release = data.items[i].releaseState;
-//       const releaseCheck = release ? `</br>Coming ${release}` : "";
-//       const html = `
-//         <article id="articleMovies">
-//           <img id="posterSearch" src="${posterImage}" alt="${searchID}">
-//           <div id="movieInfo">
-//             <h2>${title}</h2>
-//             <p>${year}${releaseCheck}</p>
-//           </div>
-//         <article>
-//       `;
-//     outputDiv.innerHTML += html;
-//     };
-// }
 }
 comingSoon();
 
-
+// Template for movie info
 function handleStartPage(data) {
   outputDiv.innerHTML = "";
   for (let i = 0; i < data.items.length; i++) {
     const title = data.items[i].title;
     const year = data.items[i].year;
     const posterImage = data.items[i].image;
+    const posterImgCheck = (posterImage == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="posterSearch" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="posterSearch" src="${posterImage}" alt="${searchID}"</img>`
     const searchID = data.items[i].id;
     const release = data.items[i].releaseState;
     const releaseCheck = release ? `</br>Coming ${release}` : "";
     const html = `
       <article id="articleMovies">
-        <img id="posterSearch" src="${posterImage}" alt="${searchID}">
+        ${posterImgCheck}
         <div id="movieInfo">
           <h2>${title}</h2>
           <p>${year}${releaseCheck}</p>
@@ -67,21 +69,22 @@ buttonMostPop = document.querySelector("#mostPop");
 buttonMostPopTV = document.querySelector("#mostPopTV");
 
 function inTheatres(event) {
-  event.preventDefault();
+  // event.preventDefault();
   const endPoint = `${url}/InTheaters/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
+
 }
 buttonTheatre.addEventListener("click", inTheatres);
 
 function mostPopular(event) {
-  event.preventDefault();
+  // event.preventDefault();
   const endPoint = `${url}/MostPopularMovies/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
 }
 buttonMostPop.addEventListener("click", mostPopular);
 
 function mostPopularTV(event) {
-  event.preventDefault();
+  // event.preventDefault();
   const endPoint = `${url}/MostPopularTVs/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
 }
