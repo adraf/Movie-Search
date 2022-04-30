@@ -25,7 +25,7 @@ animateSideBar();
 
 const apiKey = process.env.API_KEY;
 const url = "https://imdb-api.com/en/API";
-const searchTitle = "SearchTitle"
+const searchTitle = "SearchTitle";
 const endPoint = `${url}/${searchTitle}/${apiKey}`;
 
 function waitForJSON(res) {
