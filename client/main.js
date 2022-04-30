@@ -47,13 +47,13 @@ function handleStartPage(data) {
     const title = data.items[i].title;
     const year = data.items[i].year;
     const posterImage = data.items[i].image;
-    const posterImgCheck = (posterImage == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="posterSearch" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="posterSearch" src="${posterImage}" alt="${searchID}"</img>`
+    // const posterImgCheck = (posterImage == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="posterSearch" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="posterSearch" src="${posterImage}" alt="${searchID}"</img>`
     const searchID = data.items[i].id;
     const release = data.items[i].releaseState;
     const releaseCheck = release ? `</br>Coming ${release}` : "";
     const html = `
       <article id="articleMovies">
-        ${posterImgCheck}
+        <img id="posterSearch" src="${posterImage}" alt="${searchID}"</img>
         <div id="movieInfo">
           <h2>${title}</h2>
           <p>${year}${releaseCheck}</p>
