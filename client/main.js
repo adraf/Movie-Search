@@ -69,22 +69,21 @@ buttonMostPop = document.querySelector("#mostPop");
 buttonMostPopTV = document.querySelector("#mostPopTV");
 
 function inTheatres(event) {
-  // event.preventDefault();
+  event.preventDefault();
   const endPoint = `${url}/InTheaters/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
-
 }
 buttonTheatre.addEventListener("click", inTheatres);
 
 function mostPopular(event) {
-  // event.preventDefault();
+  event.preventDefault();
   const endPoint = `${url}/MostPopularMovies/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
 }
 buttonMostPop.addEventListener("click", mostPopular);
 
 function mostPopularTV(event) {
-  // event.preventDefault();
+  event.preventDefault();
   const endPoint = `${url}/MostPopularTVs/${apiKey}`
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
 }
