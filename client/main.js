@@ -64,20 +64,24 @@ function handleStartPage(data) {
   };
 }
 
-buttonTheatre = document.querySelector("#theatre");
+
+
+buttonCinema = document.querySelector("#cinema");
 buttonMostPop = document.querySelector("#mostPop");
 buttonMostPopTV = document.querySelector("#mostPopTV");
 
-function inTheatres(event) {
+function inCinema(event) {
   event.preventDefault();
   const endPoint = `${url}/InTheaters/${apiKey}`
+
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
 }
-buttonTheatre.addEventListener("click", inTheatres);
+buttonCinema.addEventListener("click", inCinema);
 
 function mostPopular(event) {
   event.preventDefault();
   const endPoint = `${url}/MostPopularMovies/${apiKey}`
+
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
 }
 buttonMostPop.addEventListener("click", mostPopular);
@@ -85,6 +89,7 @@ buttonMostPop.addEventListener("click", mostPopular);
 function mostPopularTV(event) {
   event.preventDefault();
   const endPoint = `${url}/MostPopularTVs/${apiKey}`
+
   fetch(endPoint).then(waitForJSON).then(handleStartPage);
 }
 buttonMostPopTV.addEventListener("click", mostPopularTV);

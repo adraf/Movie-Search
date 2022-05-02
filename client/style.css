@@ -91,24 +91,27 @@ body {
   padding-top: 60px;
 }
 
-#searchOptions li {
-  padding: 8px 8px 8px 4px;
-  text-decoration: none;
+#searchOptions {
   font-size: 25px;
+  margin-top: 100px;
+}
+
+#searchOptions button {
+  padding: 8px;
+  margin: 0 auto;
   color: #16161d;
   display: block;
   transition: 0.2s;
+  background: none;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 
-#searchOptions li {
-   list-style-type: none;
-   cursor: pointer;
-  }
-
-#searchOptions li:hover {
+#searchOptions button:hover {
   color: white;
 }
-
 /* Side Nav Menu ^^ */
 
 header {
