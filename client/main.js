@@ -5,21 +5,21 @@ const menuToggle = document.querySelector('#hamburger-wrapper');
 
 function animateX() {menuToggle.addEventListener("click", () => {
   menuToggle.classList.toggle("open")
-})
+  })
 }
 animateX();
 
 function animateSideBar() {
-menuToggle.addEventListener('click', (e) => {
-  e.preventDefault();
-  if (menu.style.display == 'block') {
-    menu.style.display = 'none';       					 
-    document.getElementById("mySidenav").style.width = "0px";
-  } else {
-    menu.style.display = 'block';  
-    document.getElementById("mySidenav").style.width = "250px";
-  }
-})
+  menuToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (menu.style.display == 'block') {
+      menu.style.display = 'none';       					 
+      document.getElementById("mySidenav").style.width = "0px";
+    } else {
+      menu.style.display = 'block';  
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+  })
 }
 animateSideBar();
 
@@ -64,11 +64,9 @@ function handleStartPage(data) {
   };
 }
 
-
-
-buttonCinema = document.querySelector("#cinema");
-buttonMostPop = document.querySelector("#mostPop");
-buttonMostPopTV = document.querySelector("#mostPopTV");
+buttonCinema = document.getElementById("cinema");
+buttonMostPop = document.getElementById("mostPop");
+buttonMostPopTV = document.getElementById("mostPopTV");
 
 function inCinema(event) {
   event.preventDefault();
