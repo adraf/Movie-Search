@@ -11,24 +11,13 @@ animateX();
 
 function animateSideBar() {
   menuToggle.addEventListener('click', (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (menu.style.display == 'block') {
       menu.style.display = 'none';       					 
       document.getElementById("mySidenav").style.width = "0px";
     } else {
       menu.style.display = 'block';  
       document.getElementById("mySidenav").style.width = "250px";
-      buttonCinema = document.getElementById('cinema');
-      // buttonMostPop = document.getElementById('mostPop');
-      // buttonMostPopTV = document.getElementById('mostPopTV');
-      // buttonCinema.addEventListener('click', inCinema);
-      // buttonMostPop.addEventListener('click', mostPopular);
-      // buttonMostPopTV.addEventListener('click', mostPopularTV);
-      buttonCinema.addEventListener('click', function (event) {
-        event.stopPropagation();
-        const endPoint = `${url}/InTheaters/${apiKey}`
-        fetch(endPoint).then(waitForJSON).then(handleStartPage);
-      })
     }
   })
 }
@@ -75,32 +64,32 @@ function handleStartPage(data) {
   };
 }
 
-// buttonCinema = document.getElementById("cinema");
-// buttonMostPop = document.getElementById("mostPop");
-// buttonMostPopTV = document.getElementById("mostPopTV");
+buttonCinema = document.getElementById("cinema")
+buttonMostPop = document.getElementById("mostPop");
+buttonMostPopTV = document.getElementById("mostPopTV");
 
-// function inCinema(event) {
-//   event.stopPropagation();
-//   const endPoint = `${url}/InTheaters/${apiKey}`
-//   fetch(endPoint).then(waitForJSON).then(handleStartPage);
-// }
-// buttonCinema.addEventListener('click', inCinema);
+function inCinema(event) {
+  // event.stopPropagation();
+  const endPoint = `${url}/InTheaters/${apiKey}`
+  fetch(endPoint).then(waitForJSON).then(handleStartPage);
+}
+buttonCinema.addEventListener('click', inCinema);
 
 
-// function mostPopular(event) {
-//   event.stopPropagation();
-//   const endPoint = `${url}/MostPopularMovies/${apiKey}`
-//   fetch(endPoint).then(waitForJSON).then(handleStartPage);
-// }
-// buttonMostPop.addEventListener('click', mostPopular);
+function mostPopular(event) {
+  // event.stopPropagation();
+  const endPoint = `${url}/MostPopularMovies/${apiKey}`
+  fetch(endPoint).then(waitForJSON).then(handleStartPage);
+}
+buttonMostPop.addEventListener('click', mostPopular);
 
-// function mostPopularTV(event) {
-//   // event.preventDefault();
-//   event.stopPropagation();
-//   const endPoint = `${url}/MostPopularTVs/${apiKey}`
-//   fetch(endPoint).then(waitForJSON).then(handleStartPage);
-// }
-// buttonMostPopTV.addEventListener('click', mostPopularTV);
+function mostPopularTV(event) {
+  // event.preventDefault();
+  // event.stopPropagation();
+  const endPoint = `${url}/MostPopularTVs/${apiKey}`
+  fetch(endPoint).then(waitForJSON).then(handleStartPage);
+}
+buttonMostPopTV.addEventListener('click', mostPopularTV);
 
 function handleData(data) {
   outputDiv.innerHTML = "";
