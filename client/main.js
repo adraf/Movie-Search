@@ -3,25 +3,33 @@ import "dotenv/config";
 const menu = document.querySelector('#searchOptions');
 const menuToggle = document.querySelector('#hamburger-wrapper');
 
-function animateX() {menuToggle.addEventListener("click", () => {
-  menuToggle.classList.toggle("open")
-  })
-}
-animateX();
-
 function animateSideBar() {
-  menuToggle.addEventListener('click', (e) => {
-    // e.preventDefault();
+  menuToggle.addEventListener('click', (event) => {
+    event.preventDefault();
     if (menu.style.display == 'block') {
       menu.style.display = 'none';       					 
       document.getElementById("mySidenav").style.width = "0px";
+      menuToggle.classList.toggle("open")
     } else {
       menu.style.display = 'block';  
       document.getElementById("mySidenav").style.width = "250px";
+      menuToggle.classList.toggle("open")
     }
   })
 }
 animateSideBar();
+
+
+// window.addEventListener('click', function(event) {
+//     // event.preventDefault();
+//     const sideNav = document.getElementById("mySidenav");
+//     if (((menu.style.display = 'block') && (sideNav.style.width = "250px")) && (event.target != sideNav)) {
+//       menu.style.display = 'none';       					 
+//       document.getElementById("mySidenav").style.width = "0px";
+//       menuToggle.classList.toggle("open")
+//     }
+//   })
+
 
 const apiKey = process.env.API_KEY;
 const url = "https://imdb-api.com/en/API";
@@ -46,14 +54,16 @@ function handleStartPage(data) {
   for (let i = 0; i < data.items.length; i++) {
     const title = data.items[i].title;
     const year = data.items[i].year;
+    const searchID = data.items[i].id
     const posterImage = data.items[i].image;
-    // const posterImgCheck = (posterImage == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="posterSearch" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="posterSearch" src="${posterImage}" alt="${searchID}"</img>`
-    const searchID = data.items[i].id;
+
+    const posterImgCheck = (posterImage == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="posterSearch" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="posterSearch" src="${posterImage}" alt="${searchID}"></img>`;
+
     const release = data.items[i].releaseState;
     const releaseCheck = release ? `</br>Coming ${release}` : "";
     const html = `
       <article id="articleMovies">
-        <img id="posterSearch" src="${posterImage}" alt="${searchID}"</img>
+        ${posterImgCheck}
         <div id="movieInfo">
           <h2>${title}</h2>
           <p>${year}${releaseCheck}</p>
@@ -64,32 +74,24 @@ function handleStartPage(data) {
   };
 }
 
-buttonCinema = document.getElementById("cinema")
-buttonMostPop = document.getElementById("mostPop");
-buttonMostPopTV = document.getElementById("mostPopTV");
+// SideNav Search Lists
+document.body.addEventListener('click', function(event) {
+  let sideNavSearch = event.target.closest(".sideNavList");
+  if(sideNavSearch) {
+    onButtonSelect(sideNavSearch.id);
+    function onButtonSelect() {
+      const searchTermText = sideNavSearch.id;
+      const sideNavSearchInd = `${url}/${searchTermText}/${apiKey}`
+      outputDiv.innerHTML = `<div id="loader"><h1>Loading...</h1></div>`
+      // Close sideNav on link selection
+      menuToggle.classList.toggle("open")
+      menu.style.display = 'none';       					 
+      document.getElementById("mySidenav").style.width = "0px";
+      fetch(sideNavSearchInd).then(waitForJSON).then(handleStartPage);
+    };
+  }  
+});
 
-function inCinema(event) {
-  // event.stopPropagation();
-  const endPoint = `${url}/InTheaters/${apiKey}`
-  fetch(endPoint).then(waitForJSON).then(handleStartPage);
-}
-buttonCinema.addEventListener('click', inCinema);
-
-
-function mostPopular(event) {
-  // event.stopPropagation();
-  const endPoint = `${url}/MostPopularMovies/${apiKey}`
-  fetch(endPoint).then(waitForJSON).then(handleStartPage);
-}
-buttonMostPop.addEventListener('click', mostPopular);
-
-function mostPopularTV(event) {
-  // event.preventDefault();
-  // event.stopPropagation();
-  const endPoint = `${url}/MostPopularTVs/${apiKey}`
-  fetch(endPoint).then(waitForJSON).then(handleStartPage);
-}
-buttonMostPopTV.addEventListener('click', mostPopularTV);
 
 function handleData(data) {
   outputDiv.innerHTML = "";
@@ -97,11 +99,12 @@ function handleData(data) {
     const title = data.results[i].title;
     const yearDes = data.results[i].description;
     const year = yearDes.match(/\d+/)[0];
-    const posterImage = data.results[i].image;
     const searchID = data.results[i].id;
+    const posterImage = data.results[i].image;
+    const posterImgCheck = (posterImage == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="posterSearch" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="posterSearch" src="${posterImage}" alt="${searchID}"></img>`;
     const html = `
     <article id="articleMovies">
-      <img id="posterSearch" src="${posterImage}" alt="${searchID}">
+      ${posterImgCheck}
       <div id="movieInfo">
         <h2>${title}</h2>
         <p>${year}</p>
@@ -130,8 +133,9 @@ form.addEventListener("submit", onFormSubmit);
 
 function handleIndividualData(data) {
   outputDiv.innerHTML = "";
-  const indPoster = data.image;
   const searchID = data.id;
+  const indPoster = data.image;
+  const indPosterImgCheck = (indPoster == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="indPoster" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="indPoster" src="${indPoster}" alt="${searchID}"></img>`;
   const indTitle = data.title;
   const indPlot = data.plot;
   const indPlotCheck = indPlot ? `<article>${indPlot}</article>` : "";
@@ -180,7 +184,7 @@ function handleIndividualData(data) {
   const html = `
   <main>
     <section>
-      <img id="indPoster" src="${indPoster}" alt="${searchID}">
+      ${indPosterImgCheck}
       ${tomatoRatingCheck}
     </section>
     <div id="IndMovieInfo">
