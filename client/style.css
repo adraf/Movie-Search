@@ -342,7 +342,7 @@ aside p {
   margin: 7px 0;
 }
 
-#actorSections h5, #similarTitleSection h4 {
+#actorSections h5, #actorSections h4, #similarTitleSection h4 {
   max-width: 150px;
   white-space: break-spaces;
 }
@@ -450,6 +450,10 @@ aside p {
   h1 {
     font-size: 30px;
     padding-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
   }
 
   p {

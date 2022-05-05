@@ -1,36 +1,5 @@
 import "dotenv/config";
 
-const menu = document.querySelector('#searchOptions');
-const menuToggle = document.querySelector('#hamburger-wrapper');
-
-function animateSideBar() {
-  menuToggle.addEventListener('click', (event) => {
-    event.preventDefault();
-    if (menu.style.display == 'block') {
-      menu.style.display = 'none';       					 
-      document.getElementById("mySidenav").style.width = "0px";
-      menuToggle.classList.toggle("open")
-    } else {
-      menu.style.display = 'block';  
-      document.getElementById("mySidenav").style.width = "250px";
-      menuToggle.classList.toggle("open")
-    }
-  })
-}
-animateSideBar();
-
-
-// window.addEventListener('click', function(event) {
-//     // event.preventDefault();
-//     const sideNav = document.getElementById("mySidenav");
-//     if (((menu.style.display = 'block') && (sideNav.style.width = "250px")) && (event.target != sideNav)) {
-//       menu.style.display = 'none';       					 
-//       document.getElementById("mySidenav").style.width = "0px";
-//       menuToggle.classList.toggle("open")
-//     }
-//   })
-
-
 const apiKey = process.env.API_KEY;
 const url = "https://imdb-api.com/en/API";
 const searchTitle = "SearchTitle";
@@ -40,6 +9,56 @@ function waitForJSON(res) {
   return res.json();
 }
 const outputDiv = document.querySelector('#output');
+
+const menu = document.querySelector('#searchOptions');
+const menuToggle = document.querySelector('#hamburger-wrapper');
+const sideNav = document.querySelector("#mySidenav")
+
+function animateSideBar() {
+  menuToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (menu.style.display == 'block') {
+      menu.style.display = 'none';       					 
+      sideNav.style.width = "0px";
+      menuToggle.classList.toggle("open")
+    } else {
+      menu.style.display = 'block';  
+      sideNav.style.width = "250px";
+      menuToggle.classList.toggle("open")
+      makeListeners();
+    }
+  })
+}
+animateSideBar();
+
+const makeListeners = event => {
+  const onClick = () => {
+    const onClickWithin = event => {
+      let isClickInside = sideNav.contains(event.target);
+      if (!isClickInside) {
+        event.preventDefault();
+        menu.style.display = 'none';       					 
+        sideNav.style.width = "0px";
+        menuToggle.classList.toggle("open")
+      }
+      document.removeEventListener('click', onClickWithin);
+    };
+    document.removeEventListener('click', onClick);
+    document.addEventListener('click', onClickWithin);
+  };
+  document.addEventListener('click', onClick);
+};
+
+// ** To include? **
+// Close sidebar on mouse leave
+// function closeSidebar() {
+//   sideNav.addEventListener('mouseleave', event => {
+//     menu.style.display = 'none';       					 
+//     sideNav.style.width = "0px";
+//     menuToggle.classList.toggle("open")
+//   })
+// };
+// closeSidebar();
 
 // Start Page
 function comingSoon() {
@@ -56,11 +75,9 @@ function handleStartPage(data) {
     const year = data.items[i].year;
     const searchID = data.items[i].id
     const posterImage = data.items[i].image;
-
     const posterImgCheck = (posterImage == `https://imdb-api.com/images/original/nopicture.jpg`) ? `<img id="posterSearch" src="https://raw.githubusercontent.com/adraf/Movie-Search/main/public/film-poster-placeholder.png" alt="${searchID}"></img>` : `<img id="posterSearch" src="${posterImage}" alt="${searchID}"></img>`;
-
     const release = data.items[i].releaseState;
-    const releaseCheck = release ? `</br>Coming ${release}` : "";
+    const releaseCheck = release ? `</br>${release}` : "";
     const html = `
       <article id="articleMovies">
         ${posterImgCheck}
@@ -84,14 +101,13 @@ document.body.addEventListener('click', function(event) {
       const sideNavSearchInd = `${url}/${searchTermText}/${apiKey}`
       outputDiv.innerHTML = `<div id="loader"><h1>Loading...</h1></div>`
       // Close sideNav on link selection
-      menuToggle.classList.toggle("open")
       menu.style.display = 'none';       					 
       document.getElementById("mySidenav").style.width = "0px";
+      menuToggle.classList.toggle("open")
       fetch(sideNavSearchInd).then(waitForJSON).then(handleStartPage);
-    };
-  }  
+    }
+  }
 });
-
 
 function handleData(data) {
   outputDiv.innerHTML = "";
