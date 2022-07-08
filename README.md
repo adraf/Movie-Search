@@ -3,7 +3,7 @@
 
 *Time Frame*
 
-Completed in my spare time. 20 hours so far, and ongoing.
+Completed in my spare time. It took 20 hours to complete the site I had set out to make. I am still playing with extra features to include, to enhance the site and user experience.
 
 ## Project Overview
 The idea for this project came from my love of films and my overuse of IMDB to see who that person is and "what do we know them from?"
